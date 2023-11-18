@@ -1,27 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>todolist</title>
-    <link rel="stylesheet" href="static/style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Todo List Application</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="static/style.css">
+
+  <!-- Unicons CSS -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
+
 <body>
-    <div id="myDIV" class="header">
-        <h2 style="margin:5px">Django To Do List App</h2>
-        <form action="" method="POST">
-          {% csrf_token %}
-          <input type="text" name="title" id="myInput" placeholder="Title...">
-          <button type="submit" class="addBtn">Add</button>
-        </form>
+  <div class="container">
+    <div class="input-field">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" id="myInput" placeholder="Enter your new todo" required>
+        <button type="submit" class="addBtn">Add</button>
+      </form>
+    </div>
+    <ul id="todoLists">
+      {% for todo in todos reversed %}
+      <div class="pending-tasks">
+      <li>{{todo.title | title}}</li> 
+            <a href="{% url 'delete' todo.id %}" class="addBtn">Delete</a>
       </div>
-      
-      <ul id="myUL">
-        {% for todo in todos reversed %}
-        <li>{{todo.title | title}} <span class="close"><a style="text-decoration: none; color: black;" href="delete/{{todo.id}}">Delete</a></span>
-          </li>
-        {% endfor %}
-      </ul>
+      {% endfor %}
+    </ul>
+  </div>
+
+
+  <!-- JavaScript -->
+  <script src="static/script.js"></script>
+
 </body>
+
 </html>
